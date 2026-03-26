@@ -101,5 +101,31 @@ internal class Program
         var searchByYear = context.Games.Where(g => g.ReleaseDate.Year == searchYear).ToList();
         foreach (var s in searchByYear)
             PrintGame(s);
+
+        Console.WriteLine();
+        var allSingleGames = context.Games.Where(g => g.GameMode == "Singleplayer").ToList();
+        foreach (var a in allSingleGames)
+            PrintGame(a);
+
+        Console.WriteLine();
+        var allMultiplayerGames = context.Games.Where(g => g.GameMode == "Multiplayer").ToList();
+        foreach (var a in allMultiplayerGames)
+            PrintGame(a);
+
+        var maxCopiesSold = context.Games.OrderByDescending(g => g.CopiesSold).First();
+        Console.WriteLine($"\nMax: {maxCopiesSold.Name} | {maxCopiesSold.CopiesSold}");
+
+        var minCopiesSold = context.Games.OrderBy(g => g.CopiesSold).First();
+        Console.WriteLine($"Min: {minCopiesSold.Name} | {minCopiesSold.CopiesSold}");
+
+        Console.WriteLine();
+        var top3BestSelling = context.Games.OrderByDescending(g => g.CopiesSold).Take(3).ToList();
+        foreach (var t in top3BestSelling)
+            PrintGame(t);
+        
+        Console.WriteLine();
+        var top3WorstSelling = context.Games.OrderBy(g => g.CopiesSold).Take(3).ToList();
+        foreach (var t in top3WorstSelling)
+            PrintGame(t);
     }
 }
