@@ -2,6 +2,10 @@ namespace ConsoleApp1;
 
 internal class Program
 {
+    public static void PrintGame(Game g)
+    {
+        Console.WriteLine($"{g.Id} | {g.Name} | {g.DevelopmentStudio} | {g.Genre} | {g.ReleaseDate.ToString("dd.MM.yyyy")} | {g.GameMode} | {g.CopiesSold}");
+    }
     static void Main(string[] args)
     {
         using var context = new GameContext();
@@ -53,6 +57,49 @@ internal class Program
         var games = context.Games.ToList();
 
         foreach (var g in games)
-            Console.WriteLine($"{g.Id} | {g.Name} | {g.DevelopmentStudio} | {g.Genre} | {g.ReleaseDate.ToString("dd.MM.yyyy")} | {g.GameMode} | {g.CopiesSold}");
+            PrintGame(g);
+
+        Console.Write("\nEnter a name to search: ");
+        string nameForSearch = Console.ReadLine();
+
+        Console.WriteLine();
+
+        var searchByName = context.Games.Where(g => g.Name == nameForSearch).ToList();
+        foreach (var s in searchByName)
+            PrintGame(s);
+
+        Console.Write("\nEnter a studio name to search: ");
+        string developmentStudioForSearch = Console.ReadLine();
+
+        Console.WriteLine();
+
+        var searchByDevelopmentStudio = context.Games.Where(s => s.DevelopmentStudio == developmentStudioForSearch).ToList();
+        foreach (var s in searchByDevelopmentStudio)
+            PrintGame(s);
+
+        Console.Write("\nEnter a name to search: ");
+        string searchName = Console.ReadLine();
+
+        Console.Write("Enter a studio name to search: ");
+        string searchStudio = Console.ReadLine();
+
+        var searchByNameAndStudio = context.Games.Where(g => g.Name == searchName && g.DevelopmentStudio == searchStudio).ToList();
+
+        foreach (var s in searchByNameAndStudio)
+            PrintGame(s);
+
+        Console.Write("\nEnter a genre to search: ");
+        string searchGenre = Console.ReadLine();
+
+        var searchByGenre = context.Games.Where(g => g.Genre == searchGenre).ToList();
+        foreach (var s in searchByGenre)
+            PrintGame(s);
+
+        Console.Write("\nEnter a year to search: ");
+        int searchYear = int.Parse(Console.ReadLine());
+
+        var searchByYear = context.Games.Where(g => g.ReleaseDate.Year == searchYear).ToList();
+        foreach (var s in searchByYear)
+            PrintGame(s);
     }
 }
