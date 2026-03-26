@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1;
+namespace ConsoleApp1;
 
 public class Game
 {
@@ -7,4 +7,6 @@ public class Game
     public string DevelopmentStudio { get; set; } = null!;
     public string Genre { get; set; } = null!;
     public DateTime ReleaseDate { get; set; }
+    public string GameMode { get; set; } = null!;
+    public int CopiesSold { get; set; }
 }
